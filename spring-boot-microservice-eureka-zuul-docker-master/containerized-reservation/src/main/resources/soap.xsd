@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://megatravel/data/xsd" xmlns:tns="http://megatravel/data/xsd">
+
+    <xs:complexType name="AccommodationFacility">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="image" type="xs:base64Binary"/>
+            <xs:element default="0" name="rating" type="xs:long"/>
+            <xs:element default="0" name="voters" type="xs:long"/>
+            <xs:element name="location" type="tns:Location"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="facilityAS" type="tns:FacilityAS"/>
+            <xs:element name="facilityType" type="tns:FacilityType"/>
+            <xs:element name="category" type="tns:Category"/>
+            <xs:element name="destination" type="tns:Destination"/>
+            <xs:element name="agentId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AccommodationUnit">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="capacity" type="xs:int"/>
+            <xs:element name="canBeCancelled" type="xs:boolean"/>
+            <xs:element name="daysBefore" type="xs:int"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="unitAS" type="tns:UnitAS"/>
+            <xs:element name="accommodationFacility" type="tns:AccommodationFacility"/>
+            <xs:element name="image" type="xs:string"/>
+            <xs:element name="pricePerMonth" type="tns:PricePerMonth"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Location">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="latitude" type="xs:float"/>
+            <xs:element name="longitude" type="xs:float"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Category">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UnitAS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityAS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Destination">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="longitude" type="xs:float"/>
+            <xs:element name="latitude" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PricePerMonth">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="january" type="xs:float"/>
+            <xs:element name="february" type="xs:float"/>
+            <xs:element name="march" type="xs:float"/>
+            <xs:element name="april" type="xs:float"/>
+            <xs:element name="may" type="xs:float"/>
+            <xs:element name="june" type="xs:float"/>
+            <xs:element name="july" type="xs:float"/>
+            <xs:element name="august" type="xs:float"/>
+            <xs:element name="september" type="xs:float"/>
+            <xs:element name="october" type="xs:float"/>
+            <xs:element name="november" type="xs:float"/>
+            <xs:element name="december" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FacilityType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Message">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="idSender" type="xs:long"/>
+            <xs:element name="idReceiver" type="xs:long"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="text" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Comment">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="idUser" type="xs:long"/>
+            <xs:element name="text" type="xs:string"/>
+            <xs:element name="published" type="xs:boolean"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="accommodationFacilityId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Rating">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="idUser" type="xs:long"/>
+            <xs:element name="rate" type="xs:int"/>
+            <xs:element name="accommodationFacilityId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Reservation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="checkInDate" type="xs:date"/>
+            <xs:element name="checkOutDate" type="xs:dateTime"/>
+            <xs:element name="totalPrice" type="xs:float"/>
+            <xs:element name="isRealised" type="xs:boolean" default="false"/>
+            <xs:element name="accommodationUnit" type="tns:AccommodationUnit"/>
+            <xs:element name="guestUserName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetAllUnitASRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUnitASResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="unitAS" type="tns:UnitAS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllReservationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllReservationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="reservations"
+                    type="tns:Reservation"/>
+                <xs:element name="facilityName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="tns:Reservation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostReservationRealizationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservationId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostReservationRealizationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetInboxMessagesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentUsername" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetInboxMessagesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetSentMessagesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetSentMessagesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="tns:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="message" type="tns:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetSyncBaseRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetSyncBaseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationFacility"
+                    type="tns:AccommodationFacility"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationUnit"
+                    type="tns:AccommodationUnit"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="reservation"
+                    type="tns:Reservation"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="pricePerMonth"
+                    type="tns:PricePerMonth"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="category" type="tns:Category"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="unitAS" type="tns:UnitAS"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="facilityAS"
+                    type="tns:FacilityAS"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="facilityType"
+                    type="tns:FacilityType"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="location" type="tns:Location"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="destination"
+                    type="tns:Destination"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewAccommodationFacilityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:long"/>
+                <xs:element name="accommodationFacility" type="tns:AccommodationFacility"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewAccommodationFacilityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" name="accommodationFacility"
+                    type="tns:AccommodationFacility"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

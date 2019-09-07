@@ -1,0 +1,127 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container register">
+                <div *ngIf="!isSignedUp" class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Dobrodosli</h3>
+                        <p>Imate nalog? <a routerLink="/login" style="color: wheat" >Prijavite se</a></p>
+                        
+                    </div>
+                    <div class="col-md-9 register-right">
+                        
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Registracija</h3>
+                                <form [formGroup]="registrationForm" (ngSubmit)="signUp()"> 
+
+                                    <div class="row register-form">
+                                        <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input formControlName="name" type="text" class="form-control" placeholder="Ime *" required value="" />
+                                                </div>
+                                                <div *ngIf="submitted && registrationForm.controls.name.errors" class="error">
+                                                        <div *ngIf="registrationForm.controls.name.errors.required">Unesite ime</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input formControlName="surname" type="text" class="form-control" placeholder="Prezime *" value="" />
+                                                </div>
+                                                <div *ngIf="submitted && registrationForm.controls.surname.errors" class="error">
+                                                        <div *ngIf="registrationForm.controls.surname.errors.required">Unesite prezime</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input formControlName="password" type="password" class="form-control" placeholder="Lozinka *" value="" />
+                                                </div>
+                                                <div *ngIf="submitted && registrationForm.controls.password.errors" class="error">
+                                                        <div *ngIf="registrationForm.controls.password.errors.required">Unesite lozinku</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input formControlName="rePassword" type="password" class="form-control"  placeholder="Potvrdi lozinku *" value="" />
+                                                </div>
+                                                <div *ngIf="submitted && registrationForm.controls.rePassword.errors" class="error">
+                                                        <div *ngIf="registrationForm.controls.rePassword.errors.required">Ponovite lozinku</div>
+
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input formControlName="email" minlength="9" type="email" class="form-control" placeholder="Email *" value="" />
+                                            </div>
+                                            <div *ngIf="submitted && registrationForm.controls.email.errors" class="error">
+                                                    <div *ngIf="registrationForm.controls.email.errors.required">Unesite email</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input formControlName="username" type="text" name="txtUsername" class="form-control" placeholder="Korisnicko ime *" value="" />
+                                            </div>
+                                            <div *ngIf="submitted && registrationForm.controls.username.errors" class="error">
+                                                    <div *ngIf="registrationForm.controls.username.errors.required">Unesite korisnicko ime</div>
+                                            </div>
+                                            <div class="form-group">
+                                                    <input formControlName="telNum" type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Telefon *" value="" />
+                                            </div>
+                                            <div *ngIf="submitted && registrationForm.controls.telNum.errors" class="error">
+                                                    <div *ngIf="registrationForm.controls.telNum.errors.required">Unesite broj telefona</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input formControlName="address" type="text" class="form-control" placeholder="Adresa *" value="" />
+                                            </div><div *ngIf="submitted && registrationForm.controls.address.errors" class="error">
+                                                    <div *ngIf="registrationForm.controls.address.errors.required">Unesite korisnicko ime</div>
+                                            </div>
+                                            <input type="submit" class="btnRegister"  value="Registracija"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading">Apply as a Hirer</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Register" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="isSignedUp">
+                    <p>Uspesno ste se registovali! Vratite se na<a routerLink="/">pocetnu</a></p>
+                </div>
+
+            </div>

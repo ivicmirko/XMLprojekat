@@ -1,0 +1,15 @@
+<header>
+    <div class="container1">
+      <a routerLink="/" class="logo1">MEGA TRAVEL - Agent Service</a>
+      <nav>
+        <ul>
+          <li *ngIf="!anyLogged"><a routerLink="/login">Prijava</a></li>
+          <li *ngIf="anyLogged">{{profile.username}}</li>
+          <li *ngIf="anyLogged"><a routerLink="/reservations">Rezervacije</a></li>
+          <li *ngIf="anyLogged"><a routerLink="/facilities">Objekti</a></li>
+          <li *ngIf="anyLogged"><a routerLink="/messages">Poruke</a></li>
+          <li *ngIf="anyLogged"><a  (click)="logOut()" routerLink="/">Odjava</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>

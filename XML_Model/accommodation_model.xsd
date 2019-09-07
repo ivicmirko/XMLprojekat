@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://ftn.uns.ac.rs/accommodation"
+    xmlns:acc="https://ftn.uns.ac.rs/accommodation"
+    xmlns:sys_user="https://ftn.uns.ac.rs/system_user">
+    <xs:import namespace="https://ftn.uns.ac.rs/system_user" schemaLocation="model_xml.xsd"/>
+    <xs:element name="Accommodation_Facility">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="NameOfFacility" type="xs:string"/>
+                <xs:element name="Description">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:length value="300"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" name="Images" type="xs:base64Binary"/>
+                <xs:element default="0" name="Rating" type="xs:float"/>
+                <xs:element ref="acc:Location"/>
+                <xs:element maxOccurs="unbounded" ref="acc:Accommodation_Unit" minOccurs="0"/>
+                <xs:element ref="acc:FacilityAS" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element ref="acc:FacilityType"/>
+                <xs:element ref="acc:Category"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Accommodation_Unit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Capacity" type="xs:string"/>
+                <xs:element default="false" name="CantBeCancelled" type="xs:boolean"/>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element ref="acc:UnitAS" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element ref="acc:Accommodation_Facility"/>
+                <xs:element ref="acc:pricePerMonth"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Location">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Latitude" type="xs:int"/>
+                <xs:element name="Longitude" type="xs:int"/>
+                <xs:element name="LocDescription" type="xs:string"/>
+                <xs:element ref="sys_user:Address"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Reservation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="From" type="xs:date"/>
+                <xs:element name="To" type="xs:date"/>
+                <xs:element name="TotalPrice" type="xs:float"/>
+                <xs:element name="Status">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="active"/>
+                            <xs:enumeration value="cancelled"/>
+                            <xs:enumeration value="done"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Comment" type="xs:string"/>
+                <xs:element ref="acc:Accommodation_Unit"/>
+                <xs:element name="Guest" type="sys_user:Registred_User"/>
+                <xs:element name="UnitRating" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FacilityAS">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="ServiceName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UnitAS">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="UnitServiceName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pricePerMonth">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="January" type="xs:float"/>
+                <xs:element name="February" type="xs:float"/>
+                <xs:element name="March" type="xs:float"/>
+                <xs:element name="April" type="xs:float"/>
+                <xs:element name="May" type="xs:float"/>
+                <xs:element name="June" type="xs:float"/>
+                <xs:element name="July" type="xs:float"/>
+                <xs:element name="August" type="xs:float"/>
+                <xs:element name="September" type="xs:float"/>
+                <xs:element name="October" type="xs:float"/>
+                <xs:element name="November" type="xs:float"/>
+                <xs:element name="December" type="xs:float"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FacilityType">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="TypeName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Category">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ID" type="xs:ID"/>
+                <xs:element name="CategoryName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

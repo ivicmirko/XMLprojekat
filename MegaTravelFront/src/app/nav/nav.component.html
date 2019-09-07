@@ -1,0 +1,29 @@
+<header>
+    <div class="container1">
+      <a routerLink="/" class="logo1">MEGA TRAVEL</a>
+      <nav>
+        <ul>
+          <li *ngIf="!anyLogged"><a routerLink="/registration">Registracija</a></li>
+          <li *ngIf="!anyLogged"><a routerLink="/login">Prijava</a></li>
+          <li *ngIf="anyLogged">{{profile.username}}</li>
+          <li *ngIf="anyLogged && !adminLogged"><a routerLink="/userreservations">Moje rezervacije</a></li>
+          <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/allusers">Korisnici</a></li>
+          <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/allcomments">Komentari</a></li>
+          <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/allagents">Agenti</a></li>>
+          <li><a *ngIf="anyLogged" (click)="logOut()" routerLink="/">Odjava</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div *ngIf="adminLogged" class="container1">
+        <a routerLink="/" class="logo1"></a>
+        <nav>
+          <ul>
+            <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/facilityType">Tip smestaja</a></li>
+            <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/category">Kategorizacija</a></li>
+            <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/facilityAS">AS smestaja</a></li>
+            <li *ngIf="anyLogged && adminLogged"><a routerLink="/admin/unitAS">AS jedinice</a></li>
+          </ul>
+        </nav>
+      </div>
+    
+  </header>

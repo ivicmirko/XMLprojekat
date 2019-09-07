@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://ftn.uns.ac.rs/system_user"
+    xmlns:acc="https://ftn.uns.ac.rs/accommodation"
+    xmlns:sys_user="https://ftn.uns.ac.rs/system_user">
+    <xs:import namespace="https://ftn.uns.ac.rs/accommodation"
+        schemaLocation="accommodation_model.xsd"/>
+    <xs:complexType abstract="true" name="System_User">
+        <xs:sequence>
+            <xs:element name="Name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Surname">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Username" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+            <xs:element ref="sys_user:Address"/>
+            <xs:element name="Telephone_Number" type="xs:string"/>
+            <xs:element name="ID" type="xs:ID"/>
+            <xs:element name="E-mail" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Address">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Street_Name" type="xs:string"/>
+                <xs:element name="Number" type="xs:positiveInteger"/>
+                <xs:element name="City" type="xs:string"/>
+                <xs:element name="Postal_Code">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:positiveInteger">
+                            <xs:totalDigits value="5"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Registred_User">
+        <xs:complexContent>
+            <xs:extension base="sys_user:System_User">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" ref="acc:Reservation" minOccurs="0"/>
+                    <xs:element name="UserStatus">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="Active"/>
+                                <xs:enumeration value="Blocked"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Agent">
+        <xs:complexContent>
+            <xs:extension base="sys_user:System_User">
+                <xs:sequence>
+                    <xs:element name="PIB" type="xs:int"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" ref="acc:Accommodation_Facility"
+                    />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="System_Administrator">
+        <xs:complexContent>
+            <xs:extension base="sys_user:System_User"/>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

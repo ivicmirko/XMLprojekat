@@ -1,0 +1,114 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--Table-->
+<div class="pozadina" *ngIf="!addMod">
+<table class="table table-hover table-dark">
+        <thead>
+          <tr style="background-color: darkgrey">
+            <th scope="col">#</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Korisnicko ime</th>
+            <th scope="col">PIB</th>
+            <th scope="col"><button type="button" (click)="addAgentClick()" class="btn btn-primary">Dodaj</button></th>
+            <!-- <th scope="col"></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agent of this.agents; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{agent.name}}</td>
+            <td>{{agent.surname}}</td>
+            <td>{{agent.username}}</td>
+            <td>{{agent.pib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+<!-- Card -->
+<div class="card mx-xl-5 forma" *ngIf="addMod">
+
+        <!-- Card body -->
+        <div class="card-body">
+      
+          <!-- Default form subscription -->
+          <form [formGroup]="agentForm" (ngSubmit)="addAgent()">
+            <p class="h4 text-center py-4">Dodavanje novog agenta</p>
+      
+            <!-- Default input name -->
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Ime</label>
+            <div class="form-group">
+                    <input formControlName="name" type="text" class="form-control" placeholder="Ime *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.name.errors" class="error">
+                        <div *ngIf="agentForm.controls.name.errors.required">Unesite ime agenta</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Prezime</label>
+            <div class="form-group">
+                    <input formControlName="surname" type="text" class="form-control" placeholder="Prezime *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.surname.errors" class="error">
+                        <div *ngIf="agentForm.controls.surname.errors.required">Unesite prezime</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Korisnicko ime</label>
+            <div class="form-group">
+                    <input formControlName="username" type="text" class="form-control" placeholder="Korisnicko ime *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.username.errors" class="error">
+                        <div *ngIf="agentForm.controls.username.errors.required">Unesite korisnicko ime</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Email</label>
+            <div class="form-group">
+                    <input formControlName="email" type="text" class="form-control" placeholder="Email *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.email.errors" class="error">
+                        <div *ngIf="agentForm.controls.email.errors.required">Unesite email</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Broj telefona</label>
+            <div class="form-group">
+                    <input formControlName="phoneNum" type="text" class="form-control" placeholder="Broj telefona *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.phoneNum.errors" class="error">
+                        <div *ngIf="agentForm.controls.phoneNum.errors.required">Unesite broj telefona</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Adresa</label>
+            <div class="form-group">
+                    <input formControlName="address" type="text" class="form-control" placeholder="Adresa *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.address.errors" class="error">
+                        <div *ngIf="agentForm.controls.address.errors.required">Unesite adresu</div>
+            </div>
+            <br>
+            <label for="defaultFormCardNameEx" class="grey-text font-weight-light">PIB</label>
+            <div class="form-group">
+                    <input formControlName="pib" type="text" class="form-control" placeholder="pib *" value="" />
+            </div>
+            <div *ngIf="submitted && agentForm.controls.pib.errors" class="error">
+                        <div *ngIf="agentForm.controls.pib.errors.required">Pib</div>
+            </div>
+            <br>
+      
+      
+            <div class="text-center py-4 mt-3">
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+            </div>
+          </form>
+          <!-- Default form subscription -->
+      
+        </div>
+        <!-- Card body -->
+      
+      </div>
+      <!-- Card -->

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:acc="https://ftn.uns.ac.rs/accommodation"
+    xmlns:sys_user="https://ftn.uns.ac.rs/system_user">
+    <xs:import namespace="https://ftn.uns.ac.rs/system_user" schemaLocation="model_xml.xsd"/>
+    <xs:import namespace="https://ftn.uns.ac.rs/accommodation"
+        schemaLocation="accommodation_model.xsd"/>
+    <xs:element name="LoginData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getFacilityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="sys_user:Address"/>
+                <xs:element ref="acc:FacilityType"/>
+                <xs:element ref="acc:Category"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="images" type="xs:base64Binary"/>
+                <xs:element name="rating" type="xs:string"/>
+                <xs:element ref="acc:FacilityAS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setFacilityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="sys_user:Address"/>
+                <xs:element ref="acc:Category"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element ref="acc:FacilityType"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="images" type="xs:base64Binary"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getUnitRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="capacity" type="xs:string"/>
+                <xs:element name="cantbecancelled" type="xs:boolean"/>
+                <xs:element name="pricePerMonth" type="xs:string"/>
+                <xs:element ref="acc:UnitAS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getPriceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="IDUnit" type="xs:ID"/>
+                <xs:element name="priceUnit" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="From" type="xs:date"/>
+                <xs:element name="To" type="xs:date"/>
+                <xs:element name="totalprice" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="comment" type="xs:string"/>
+                <xs:element name="guest" type="sys_user:System_User"/>
+                <xs:element name="rating" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="postReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="From" type="xs:date"/>
+                <xs:element name="To" type="xs:string"/>
+                <xs:element name="totalprice" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getUnitASRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="nameOfUnitAS" type="xs:string"
+                />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getFacilityASRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="nameOfFacilityAS"
+                    type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addFacilityASRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="IDFac" type="xs:ID"/>
+                <xs:element name="IDAS" type="xs:ID"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addUnitASRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="IDUnit" type="xs:ID"/>
+                <xs:element name="IDAS" type="xs:ID"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

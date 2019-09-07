@@ -1,0 +1,101 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!-- <div id="booking" class="section"> -->
+		<div *ngIf="!adminLogged" class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7 col-md-push-5">
+						<div class="booking-cta">
+							<h1>Make your reservation</h1>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, soluta magnam consectetur molestias itaque
+								ad sint fugit architecto incidunt iste culpa perspiciatis possimus voluptates aliquid consequuntur cumque quasi.
+								Perspiciatis.
+							</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-pull-7">
+						<div class="booking-form">
+							<form [formGroup]="searchForm" (ngSubmit)="onSubmitt()">
+								<div class="form-group">
+									<span class="form-label">Vasa destinacija</span>
+									<input formControlName="destination"  class="form-control" type="text" placeholder="Unesite naziv zeljene destinacije" >
+
+									<!-- <mat-form-field >
+										<input  type="text"  placeholder="Unesite naziv zeljene destinacije" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+									</mat-form-field>
+										<div class="form-label">
+										<mat-autocomplete #auto="matAutocomplete">
+											<mat-option *ngFor="let option of destinations" [value]="option.name">
+											  {{option.name}}
+											</mat-option>
+										</mat-autocomplete>
+									</div> -->
+									
+								
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Check In</span>
+											<input formControlName="startDate"  class="form-control" type="date" [min]="minDate | date:'yyyy-MM-dd'" required>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Check out</span>
+											<input formControlName="endDate" [min]="minEndDate | date:'yyyy-MM-dd'" class="form-control" type="date" required>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4">
+										<div  *ngIf="false" class="form-group">
+											<span class="form-label">Sobe</span>
+											<select formControlName="rooms" class="form-control">
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												
+											</select>
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<span class="form-label">Osoba</span>
+											<select formControlName="persons" class="form-control">
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+											</select>
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+									<div *ngIf="false" class="col-sm-4">
+										<div class="form-group">
+											<span class="form-label">Children</span>
+											<select class="form-control">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+											</select>
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-btn">
+									<button class="submit-btn">Pronađi smeštaj</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- </div> -->
