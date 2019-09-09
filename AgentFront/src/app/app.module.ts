@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http' 
-import {ReactiveFormsModule} from '@angular/forms'
+import {ReactiveFormsModule, FormsModule} from '@angular/forms'
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { from } from 'rxjs';
 import { FacilitiesComponent } from './facilities/facilities.component';
 import { TokenInterceptorServiceService } from './service/TokenInterceptorService/token-interceptor-service.service';
 import { AgentReservationComponent } from './agent-reservation/agent-reservation.component';
+import { ReservationsComponent } from './reservations/reservations.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { AgentReservationComponent } from './agent-reservation/agent-reservation
     NavComponent,
     LoginComponent,
     FacilitiesComponent,
-    AgentReservationComponent
+    AgentReservationComponent,
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {

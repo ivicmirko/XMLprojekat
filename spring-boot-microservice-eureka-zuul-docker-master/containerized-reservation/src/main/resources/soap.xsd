@@ -270,4 +270,32 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="PostNewUnitRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="unit" type="tns:AccommodationUnit"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PostNewUnitResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="unit" type="tns:AccommodationUnit"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCommentsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="agentId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCommentsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="comments" type="tns:Comment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

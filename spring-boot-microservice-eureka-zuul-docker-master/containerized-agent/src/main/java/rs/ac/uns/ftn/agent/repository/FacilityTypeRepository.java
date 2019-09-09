@@ -11,4 +11,5 @@ import rs.ac.uns.ftn.agent.model.FacilityType;
 public interface FacilityTypeRepository extends JpaRepository<FacilityType, Long> {
 
 	List<FacilityType> findAll();
+	FacilityType findOneById(long id);
 }

@@ -60,7 +60,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class Message {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected long id;
 	
 	@Column(nullable=false)

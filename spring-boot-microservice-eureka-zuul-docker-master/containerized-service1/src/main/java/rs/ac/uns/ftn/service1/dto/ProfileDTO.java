@@ -4,6 +4,9 @@ import java.util.List;
 
 public class ProfileDTO {
 
+	
+	private long id;
+	
 	private String username;
 	
 	private String token;
@@ -44,6 +47,16 @@ public class ProfileDTO {
 	public void setAuthorities(List<String> authorities) {
 		this.authorities = authorities;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 

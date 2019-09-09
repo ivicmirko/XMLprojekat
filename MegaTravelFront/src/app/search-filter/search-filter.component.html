@@ -134,13 +134,13 @@
     <div class="row">
         <div class="col-md-9 ">
             <div class="crane-grid-listing-block">
-                <div class="row" *ngFor="let fac of showingFacilities">
+                <div class="row" *ngFor="let fac of showingFacilities; let ii=index">
                      <div class="col-md-12">
 	                    <div class="crane-grid-listing clearfix">
 	                        <div class="col-md-3 crane-image-block ">
 	                            <div class="crane-list-img">
-	                                <img class="img-responsive"src="https://www.cyclonethemes.com/demo/extretion/wp-content/uploads/2016/08/man-471192_960_720-900x400.jpg">
-	                            </div>
+                                        <img class="img-responsive" [src]="images[ii]" alt="">
+                                    </div>
 	                        </div>
 	                        <div class="col-md-7">
 	                            <div class="crane-list-content">

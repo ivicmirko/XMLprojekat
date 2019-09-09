@@ -12,4 +12,5 @@ import rs.ac.uns.ftn.agent.model.Destination;
 public interface DestinationRepository extends JpaRepository<Destination, Long> {
 	
 	List<Destination> findAll();
+	Destination findOneById(long id);
 }

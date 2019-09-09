@@ -1,40 +1,40 @@
---categories of facility
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('1', 'nekategorisan');
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('2', '1 zvezdica');
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('3', '2 zvezdica');
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('4', '3 zvezdica');
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('5', '4 zvezdica');
-INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('6', '5 zvezdica');
-
---destination
-INSERT INTO `megatravel`.`destination` (`id`, `latitude`, `longitude`, `name`) VALUES ('1', '48.137154', '11.576124', 'minhen');
-INSERT INTO `megatravel`.`destination` (`id`, `latitude`, `longitude`, `name`) VALUES ('2', '44.786568', '20.448922', 'beograd');
-
---Facility AS 
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('1', 'parking');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('2', 'wi-fi');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('3', 'dorucak');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('4', 'polu-pansion');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('5', 'pansion');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('6', 'all-inclusive');
-INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('7', 'pet-friendly');
-
---facility types
-INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('1', 'hotel');
-INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('2', 'bed&breakfast');
-INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('3', 'apartman');
-
---unit AS
-INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('1', 'tv');
-INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('2', 'mini kuhina/kuhinja');
-INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('3', 'privatno kupatilo');
-
---lokacije
-INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('1', 'Bulevar Nikole Tesle', '44.830008', 'Na Dunava.', '20.419823');
-INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('2', 'Prizrenska', '44.813169', 'Centar grada.', '20.460467');
-INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('3', 'Paul Heyse Strasse', '48.138129', 'Centar grada.', '11.555825');
-INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('4', 'Neuberger Strasse', '48.210418', 'Okolina Minhena.', '11.586669');
-
+----categories of facility
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('1', 'nekategorisan');
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('2', '1 zvezdica');
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('3', '2 zvezdica');
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('4', '3 zvezdica');
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('5', '4 zvezdica');
+--INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('6', '5 zvezdica');
+--
+----destination
+--INSERT INTO `megatravel`.`destination` (`id`, `latitude`, `longitude`, `name`) VALUES ('1', '48.137154', '11.576124', 'minhen');
+--INSERT INTO `megatravel`.`destination` (`id`, `latitude`, `longitude`, `name`) VALUES ('2', '44.786568', '20.448922', 'beograd');
+--
+----Facility AS 
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('1', 'parking');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('2', 'wi-fi');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('3', 'dorucak');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('4', 'polu-pansion');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('5', 'pansion');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('6', 'all-inclusive');
+--INSERT INTO `megatravel`.`facilityas` (`id`, `name`) VALUES ('7', 'pet-friendly');
+--
+----facility types
+--INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('1', 'hotel');
+--INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('2', 'bed&breakfast');
+--INSERT INTO `megatravel`.`facility_type` (`id`, `name`) VALUES ('3', 'apartman');
+--
+----unit AS
+--INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('1', 'tv');
+--INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('2', 'mini kuhina/kuhinja');
+--INSERT INTO `megatravel`.`unitas` (`id`, `name`) VALUES ('3', 'privatno kupatilo');
+--
+----lokacije
+--INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('1', 'Bulevar Nikole Tesle', '44.830008', 'Na Dunava.', '20.419823');
+--INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('2', 'Prizrenska', '44.813169', 'Centar grada.', '20.460467');
+--INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('3', 'Paul Heyse Strasse', '48.138129', 'Centar grada.', '11.555825');
+--INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`, `longitude`) VALUES ('4', 'Neuberger Strasse', '48.210418', 'Okolina Minhena.', '11.586669');
+--
 
 ----facilities
 --INSERT INTO `megatravel`.`accommodation_facility` (`id`, `description`, `image`, `name`, `rating`, `voters`, `category`, `destination`, `facility_type_id`, `location_id`, `agent_id`) VALUES ('1', 'Lep hotel veoma', '123', 'Hotel Moskva', '15', '3', '6', '2', '1', '2', '2');
@@ -59,19 +59,19 @@ INSERT INTO `megatravel`.`location` (`id`, `address`, `latitude`, `description`,
 --INSERT INTO `megatravel`.`acc_facilityas` (`acc_facility_id`, `asf_id`) VALUES ('4', '1');
 --INSERT INTO `megatravel`.`acc_facilityas` (`acc_facility_id`, `asf_id`) VALUES ('4', '3');
 
---pricePerMonth
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('1', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('2', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('3', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('4', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('5', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('6', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('7', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('8', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('9', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('10', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('11', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
-INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('12', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+----pricePerMonth
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('1', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('2', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('3', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('4', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('5', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('6', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('7', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('8', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('9', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('10', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('11', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
+--INSERT INTO `megatravel`.`price_per_month` (`id`, `april`, `august`, `december`, `february`, `january`, `july`, `june`, `march`, `may`, `november`, `october`, `september`) VALUES ('12', '10', '12', '15', '12', '13', '12', '10', '10', '12', '13', '11', '12');
 
 ----accommodationUnit
 --INSERT INTO `megatravel`.`accommodation_unit` (`id`, `can_be_cancelled`, `capacity`, `days_before`, `accommodation_facility`, `price_per_month_id`) VALUES ('1', b'1', '2', '3', '1', '1');

@@ -124,7 +124,9 @@ public class LoginController {
 			List<String> authorities = user.getAuthorities().stream()
     				.map(GrantedAuthority::getAuthority)
     				.collect(Collectors.toList());
+			System.out.println("Id:"+user.getId());
 			ProfileDTO profile=new ProfileDTO(user.getUsername(),request.getHeader("Buckuris"), authorities);
+			profile.setId(user.getId());
 			
 			return new ResponseEntity<ProfileDTO>(profile,HttpStatus.OK);
 		}else {

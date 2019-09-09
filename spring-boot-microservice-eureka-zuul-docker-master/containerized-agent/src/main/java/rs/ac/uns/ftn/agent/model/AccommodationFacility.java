@@ -85,7 +85,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class AccommodationFacility {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id;
 	
     @XmlElement(required = true)
@@ -114,7 +114,7 @@ public class AccommodationFacility {
     @JoinColumn(name="locationId", referencedColumnName="id")
     protected Location location;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
     		name="accFacilityAS",
     		joinColumns=@JoinColumn(name="accFacilityId"),
@@ -139,7 +139,7 @@ public class AccommodationFacility {
     @Column(nullable=false)
     protected long agentId;
     
-    @OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="accommodationFacility")
+    @OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.REMOVE,mappedBy="accommodationFacility")
 	@JsonIgnore
 	protected List<AccommodationUnit> accommodationUnit;
     

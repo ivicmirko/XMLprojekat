@@ -139,7 +139,7 @@ public class ObjectCaster {
 		unit.setId(acc.getId());
 		unit.setCanBeCancelled(acc.isCanBeCancelled());
 		unit.setCapacity(acc.getCapacity());
-		unit.setDaysBefore(unit.getDaysBefore());
+		unit.setDaysBefore(acc.getDaysBefore());
 		
 		facility=this.castAccommodationFacility(acc.getAccommodationFacility());
 		unit.setAccommodationFacility(facility);

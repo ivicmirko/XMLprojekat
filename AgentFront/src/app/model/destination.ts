@@ -5,14 +5,13 @@ export class Destination {
     name:string;
     latitude:Number;
     longitude:Number;
-    accommodationFacility:AccommodationFacility[];
 
     constructor(id:Number,name:string,latitude:Number,
-        longitude:Number,accommodationFacility:AccommodationFacility[]){
+        longitude:Number){
             this.id=id;
             this.name=name;
             this.longitude=longitude;
             this.latitude=latitude;
-            this.accommodationFacility=accommodationFacility;
+            
     }
 }

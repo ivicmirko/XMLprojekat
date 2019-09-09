@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,14 +56,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class FacilityAS {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id;
 	
     @XmlElement(required = true)
     @Column(nullable=false)
     protected String name;
     
-	 @ManyToMany(mappedBy="facilityAS")
+	 @ManyToMany(mappedBy="facilityAS",fetch=FetchType.EAGER)
 	 @JsonIgnore
 	 private List<AccommodationFacility> accommodationFacility;
 

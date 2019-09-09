@@ -1,0 +1,119 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+<div class="search-result-title" *ngIf="!addMod">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                        <button type="button" (click)="makeResClick()" class="btn btn-warning btn-block">Napravi rezervaciju</button>
+                    <hr>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="container" *ngIf="!addMod">
+    <div class="row">
+        <div class="col-md-9 ">
+            <div class="crane-grid-listing-block">
+                <div class="row" *ngFor="let res of reservations; let ii=index">
+                        <div class="col-md-12">
+                        <div class="crane-grid-listing clearfix">
+                            <div class="col-md-3 crane-image-block ">
+                                <div class="crane-list-img">
+                                    <img class="img-responsive"src="https://www.cyclonethemes.com/demo/extretion/wp-content/uploads/2016/08/man-471192_960_720-900x400.jpg">
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                    <div class="crane-list-content">
+                                            <div class="crane-title">
+                                            <h3>Guest username: {{res.guestUserName}} </h3>
+                                        </div>
+                                
+                                        <div class="crane-phone">
+                                            <ul class="list-inline">
+                                                <li><i class="fa fa-calendar" style="color: orange"></i>CheckInDate: {{res.checkInDate| date: 'dd.MM.yyyy'}}</li>
+                                                <li><i class="fa fa-calendar" style="color:orange"></i>CheckOutDate: {{res.checkOutDate| date: 'dd.MM.yyyy'}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="crane-address">
+                                            <ul class="list-inline">
+                                                <li><i class="fa fa-map-marker">Objekat:{{res.facilityName}}</i></li>
+                                                    <li></li>
+                                                    <!-- <li><i class="fa fa-book" style="color:orange"></i> </li> -->
+                                        <!-- <li>Opposite SBI Bank</li>
+                                        <li>New Delhi</li>
+                                        <li>110062</li> -->
+                                            </ul>
+                                        </div>
+                                        
+                                        <!-- <div class="crane-category">
+                                            <ul class="list-inline">
+                                                <li  ><i class="fa fa-smile-o" style="color:orange"></i><b></b></li>   
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2 padding-b-10 ">
+                                        <div class="margin-t-40 hidden-xs"></div>
+                                        <!-- <p><i class="fa fa-thumbs-o-up" style="color:orange"></i></p> -->
+                                        <p><i class="fa fa-eur" style="color:orange"></i>Cena: {{res.totalPrice}}eur</p>
+                                        <button *ngIf="!res.isRealised" (click)="realizeReservation(res.id)" type="button"class="btn btn-warning btn-block">Zavrsi</button>
+                                    </div>
+                        </div>   
+                    </div>
+                </div>
+                        
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container forma" *ngIf="addMod">
+	<div class="row">
+	  <form [formGroup]="newResForm">
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Check in *</label>
+            <input formControlName="checkInDate" type="date" class="form-control" placeholder="" required>
+        </div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >CheckOut*</label>
+            <input type="date" formControlName="checkOutDate" class="form-control" placeholder="" required>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Ukupna cena*</label>
+            <input formControlName="totalPrice" type="number" class="form-control" placeholder="">
+        </div>
+    </form>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Realizovana*</label>
+            <input [(ngModel)]="isRealizedNewReservation" type="checkbox" class="form-control" placeholder="">
+        </div>
+        <div class="clearfix"></div>
+    
+        
+    <div class="form-group">
+        <label >Smestajna jedinica:</label>
+        <select [(ngModel)]="unitId" class="form-control" id="destinationSelector">
+        <option *ngFor="let unit of units" [value]="unit.id">{{unit.facilityName}}(kapacitet={{unit.capacity}})</option>
+        </select>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-10 col-sm-4 col-md-4 col-lg-4">
+        <button (click)="makeReservation()" type="submit" class="btn btn-default">Submit</button>
+    </div>
+    <div class="clearfix"></div>
+</div>

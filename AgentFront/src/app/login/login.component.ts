@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵsetCurrentInjector } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {Location} from '@angular/common'
 
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   errorMessage='';
   private loginParams: LoginParams;
   private profile: ProfileDTO;
+  anyLogged=false;
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private sessionStorageService: SessionStorageService,
     private router: Router, private routerService: RouterService,private authService:AuthService,
@@ -69,11 +70,13 @@ export class LoginComponent implements OnInit {
       }
 
         this.profile=data;
+        this.profile.id=data.id;
         this.sessionStorageService.saveToken(data.token);
         this.sessionStorageService.saveUsername(data.username);
         this.sessionStorageService.saveUserData(this.profile);
 
         this.isLogged=true;
+        console.log("hohohoh"+this.profile.id+"aa"+data.id);
         this.shareService.sendProfile(this.profile);
         this.shareService.sendIsLogged(this.isLogged);
         this.syncData();
@@ -91,6 +94,8 @@ export class LoginComponent implements OnInit {
         alert("Pogresan password ili korisnicko ime!");
         this.success=false;
       })
+
+      this.getLoggedUser();
 
   }
 
@@ -114,6 +119,30 @@ export class LoginComponent implements OnInit {
     error=>{
       console.log('buc');
     })
+  }
+
+  getLoggedUser(){
+    console.log('loog');
+    this.authService.getLogged().subscribe(data=>{
+      console.log('usa');
+      this.profile=data;
+      this.anyLogged=true;
+      this.isLogged=true;
+      this.shareService.sendIsLogged(this.anyLogged);
+      this.shareService.sendProfile(this.profile);
+      let role=this.profile.authorities[0];
+      if(role == 'admin'){
+        
+      }else{
+        
+      }
+    },
+    error=>{
+      this.profile=null;
+      this.anyLogged=false;
+      this.isLogged=false;
+      
+    });
   }
 
 }

@@ -7,7 +7,7 @@ export class AccommodationFacility {
     id:Number;
     name:String;
     description:String;
-    images:String;
+    image:any;
     rating:Number;
     voters:Number;
     location:Location;
@@ -18,13 +18,13 @@ export class AccommodationFacility {
     destination:Destination;
     minPrice:Number;
 
-    constructor(id:Number,name:String,description:String,images:String,rating:Number,voters:Number,
+    constructor(id:Number,name:String,description:String,rating:Number,voters:Number,
         location:Location,facilityAS:FacilityAS[],facilityType:FacilityType,category:Category,destination:Destination,
         minPrice:Number){
             this.id=id;
             this.name=name;
             this.description=description;
-            this.images=images;
+            // this.images=images;
             this.rating=rating;
             this.voters=voters;
             this.location=location;

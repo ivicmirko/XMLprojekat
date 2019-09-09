@@ -9,7 +9,7 @@ export class Reservation {
     accommodationUnit:AccommodationUnit;
     usernameGuest:String;
     totalPrice:Number;
-    facilityName;
+    facilityName:String;
 
 
     constructor(id:Number,checkInDate:Date,checkOutDate:Date,isRealised:boolean,

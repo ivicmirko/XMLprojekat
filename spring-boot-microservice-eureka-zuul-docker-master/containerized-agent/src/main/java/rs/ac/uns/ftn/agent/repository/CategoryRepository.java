@@ -13,4 +13,5 @@ import rs.ac.uns.ftn.agent.model.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 
 	List<Category> findAll();
+	Category findOneById(long id);
 }

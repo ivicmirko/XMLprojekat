@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShareService } from '../service/Share/share.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { AuthService } from '../service/Auth/auth.service';
 import { SearchReservationService } from '../service/SearchReservation/search-reservation.service';
 import { ProfileDTO } from '../model/profile-dto';
 import { SifarnikService } from '../service/Sifarnik/sifarnik.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search-filter',
@@ -34,10 +35,11 @@ export class SearchFilterComponent implements OnInit {
   length:Number=0;
   destinationName:String="";
   profile:ProfileDTO;
+  images:any[]=[];
 
   constructor(private formBuilder:FormBuilder,private sifarnikService:SifarnikService,private authService:AuthService,
     private shareService:ShareService,private srcResService:SearchReservationService,
-    private router:Router) { }
+    private router:Router,private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
     this.searchForm=this.formBuilder.group({
@@ -60,7 +62,14 @@ export class SearchFilterComponent implements OnInit {
       this.facilities=data;
       this.showingFacilities=data;
       this.length=this.facilities.length;
-    })
+
+      for(let ij=0; ij< this.facilities.length;ij++){
+        console.log(this.images);
+        let objectURL = 'data:image/jpeg;base64,' + this.facilities[ij].image;
+        this.images.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+      console.log(this.images);
+    }
+    });
     
     if(this.facilities != null){
       console.log('nn');

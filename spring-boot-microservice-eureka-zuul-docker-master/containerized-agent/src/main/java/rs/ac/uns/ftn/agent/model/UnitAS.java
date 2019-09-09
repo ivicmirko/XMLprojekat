@@ -55,7 +55,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UnitAS {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id;
 	
     @XmlElement(required = true)

@@ -6,64 +6,66 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
-<div class="search-result-title">
+<div class="search-result-title" *ngIf="!addFMod && !addUMod && !submitted">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                        <button type="button"class="btn btn-warning btn-block">Dodaj objekat</button>
+                        <button type="button" (click)="addFacilityClick()" class="btn btn-warning btn-block">Dodaj objekat</button>
                     <hr>
                 </div>
             </div>
         </div>
 </div>
-<div class="container">
+
+<div class="container" *ngIf="!addFMod && !submitted && !addUMod">
     <div class="row">
         <div class="col-md-9 ">
             <div class="crane-grid-listing-block">
-                <div class="row" *ngFor="let res of reservations.reservations">
+                <div class="row" *ngFor="let fac of facilities; let ii=index">
                         <div class="col-md-12">
                         <div class="crane-grid-listing clearfix">
                             <div class="col-md-3 crane-image-block ">
                                 <div class="crane-list-img">
-                                    <img class="img-responsive"src="https://www.cyclonethemes.com/demo/extretion/wp-content/uploads/2016/08/man-471192_960_720-900x400.jpg">
+                                    <img class="img-responsive" [src]="images[ii]" alt="">
+
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <div class="crane-list-content">
-                                        <div class="crane-title">
-                                        <h3>Guest username: {{res.guestUserName}} </h3>
-                                    </div>
-                            
-                                    <div class="crane-phone">
-                                        <ul class="list-inline">
-                                            <li><i class="fa fa-calendar" style="color: orange"></i>CheckInDate: {{res.checkInDate| date: 'dd.MM.yyyy'}}</li>
-                                            <li><i class="fa fa-calendar" style="color:orange"></i>CheckOutDate: {{res.checkOutDate| date: 'dd.MM.yyyy'}}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="crane-address">
-                                        <ul class="list-inline">
-                                            <!-- <li><i class="fa fa-map-marker"></i></li>
-                                                <li></li>
-                                                <li><i class="fa fa-book" style="color:orange"></i> </li> -->
-                                    <!-- <li>Opposite SBI Bank</li>
-                                    <li>New Delhi</li>
-                                    <li>110062</li> -->
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="crane-category">
-                                        <ul class="list-inline">
-                                            <!-- <li  ><i class="fa fa-smile-o" style="color:orange"></i><b></b></li>    -->
-                                        </ul>
+                                    <div class="crane-list-content">
+                                         <div class="crane-title">
+                                            <h3>{{fac.name}}, {{fac.destination.name}} </h3>
+                                        </div>
+                              
+                                        <div class="crane-phone">
+                                            <ul class="list-inline">
+                                                <li><i class="fa fa-hotel" style="color: orange"></i> {{fac.facilityType.name}}</li>
+                                                <li><i class="fa fa-star" style="color:orange"></i> {{fac.category.name}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="crane-address">
+                                            <ul class="list-inline">
+                                                <li><i class="fa fa-map-marker"></i></li>
+                                                    <li>{{fac.location.address}}</li>
+                                                    <li><i class="fa fa-book" style="color:orange"></i> {{fac.description}}</li>
+                                      <!-- <li>Opposite SBI Bank</li>
+                                      <li>New Delhi</li>
+                                      <li>110062</li> -->
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="crane-category">
+                                            <ul class="list-inline">
+                                                <li  *ngFor="let ass of fac.facilityAS "><i class="fa fa-smile-o" style="color:orange"></i><b>{{ass.name}}</b></li>   
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <div class="col-md-2 padding-b-10 ">
-                                <div class="margin-t-40 hidden-xs"></div>
-                                <!-- <p><i class="fa fa-thumbs-o-up" style="color:orange"></i></p> -->
-                                <!-- <p><i class="fa fa-eur" style="color:orange"></i>Cena: {{res.totalPrice}} eur/noć</p> -->
-                                <button *ngIf="!res.isRealised" (click)="detaljnije(fac)" type="button"class="btn btn-warning btn-block">Zavrsi</button>
-                            </div>
+                                    <div class="margin-t-40 hidden-xs"></div>
+                                    <p><i class="fa fa-thumbs-o-up" style="color:orange"></i> {{ (fac.rating/fac.voters).toFixed(1) }}</p>
+                                    <p><i class="fa fa-eur" style="color:orange"></i>{{fac.minPrice}} eur/noć</p>
+                                    <button (click)="addUnitClick(fac.id)" type="button"class="btn btn-warning btn-block">Dodaj jedinicu</button>
+                                </div>
                         </div>   
                     </div>
                 </div>
@@ -155,7 +157,7 @@
                     <div class="col-md-2 padding-b-10 ">
                         <div class="margin-t-40 hidden-xs"></div>
                         <button type="button"class="btn btn-default btn-block">Call Now</button>
-                        <button type="button"class="btn btn-warning btn-block">Booking</button>
+                        <button (click)="addUnitClick()" type="button"class="btn btn-warning btn-block">Dodaj jedinicu</button>
                     </div>
                 </div>
                 
@@ -167,3 +169,215 @@
         </div>
     </div>
 </div>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container forma" *ngIf="addFMod && !submitted && !addUMod">
+	<div class="row">
+	  <form [formGroup]="newFacilityForm">
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Naziv objekta *</label>
+            <input formControlName="name" type="text" class="form-control" placeholder="Unesite naziv objekta">
+        </div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Opis objekta*</label>
+            <textarea formControlName="description"  class="form-control" name="Text1" cols="40" rows="5"></textarea>
+            <!-- <input type="tex" formControlName="description" class="form-control" id="exampleInputEmail1" placeholder="Enter Name"> -->
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Lokacija-adresa*</label>
+            <input formControlName="address" type="text" class="form-control" placeholder="Adresa">
+        </div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Opis lokacije*</label>
+            <input formControlName="descriptionLocation" type="text" class="form-control" placeholder="Opis lokacije">
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Lokacija-longitude*</label>
+            <input formControlName="longitude" type="number" class="form-control" placeholder="Longitude">
+        </div>
+        <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <label >Lokacija-latitude*</label>
+            <input formControlName="latitude" type="number" class="form-control" placeholder="latitude">
+        </div>
+        <div class="clearfix"></div>
+    </form>
+        
+        <!-- <div class="form-group">
+            <label for="exampleFormControlInput1"></label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          </div> -->
+          <div class="clearfix"></div>
+          <div class="form-group">
+            <label >Destinacija:</label>
+            <select [(ngModel)]="destinationId" class="form-control" id="destinationSelector">
+                <option *ngFor="let des of destinations" [value]="des.id">{{des.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Tip objekta:</label>
+            <select [(ngModel)]="facilityTypeId" class="form-control" id="destinationSelector">
+                    <option *ngFor="let type of facilityTypes" [value]="type.id">{{type.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label >Kategorija:</label>
+            <select [(ngModel)]="categoryId" class="form-control" id="destinationSelector">
+                    <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dodatne pogodnosti objekta</label>
+            <select [(ngModel)]="fasId" multiple class="form-control" id="exampleFormControlSelect2">
+                    <option *ngFor="let fas of facilityAS" [value]="fas.id">{{fas.name}}</option>
+            </select>
+          </div>
+          <!-- <div class="form-group">
+            <label for="exampleFormControlTextarea1">Example textarea</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div> -->
+        <div class="clearfix"></div>
+        <div class="col-xs-10 col-sm-4 col-md-4 col-lg-4">
+            <button (click)="addFacility()" type="submit" class="btn btn-default">Submit</button>
+        </div>
+    <div class="clearfix"></div>
+
+    <br /><br />
+	</div>
+</div>
+
+<div *ngIf="submitted && !addFMod && !addUMod" style="margin: 50px">
+        <label for="exampleInputFile">Unesite sliku:</label>
+        <input (change)="imageSelected($event)" type="file" id="exampleInputFile">
+        <button (click)="uploadImage()" type="button" class="btn btn-default">Dodaj sliku</button>
+
+    </div>
+
+<!-- FORMA ZA UNOS UNITA -->
+<div class="container forma" *ngIf="!addFMod && !submitted && addUMod">
+        <div class="row">
+          
+            
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Moze li biti otkazan?</label>
+                <input [(ngModel)]="canBeCanceled" type="checkbox" class="form-control" placeholder="">
+            </div>
+            <form [formGroup]="newUnitForm">
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Koliko dana ranije se sme otkazati*</label>
+                <input formControlName="daysBefore" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Kapacitet *</label>
+               <input formControlName="capacity" type="number" class="form-control" placeholder="Unesite naziv objekta">
+            </div>    
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                    <label >Cena po mesecima</label>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Januar*</label>
+                <input formControlName="january" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Februar*</label>
+                <input formControlName="february" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Mart*</label>
+                <input formControlName="march" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >April*</label>
+                <input formControlName="april" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Maj*</label>
+                <input formControlName="may" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Jun*</label>
+                <input formControlName="june" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Jul*</label>
+                <input formControlName="july" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Avgust*</label>
+                <input formControlName="february" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Septembar*</label>
+                <input formControlName="september" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >October*</label>
+                <input formControlName="october" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Novembar*</label>
+                <input formControlName="november" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <label >Decembar*</label>
+                <input formControlName="december" type="number" class="form-control" placeholder="">
+            </div>
+            <div class="clearfix"></div>
+        </form>
+            
+            <!-- <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+              </div> -->
+              <!-- <div class="clearfix"></div>
+              <div class="form-group">
+                <label >Destinacija:</label>
+                <select [(ngModel)]="destinationId" class="form-control" id="destinationSelector">
+                    <option *ngFor="let des of destinations" [value]="des.id">{{des.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label >Tip objekta:</label>
+                <select [(ngModel)]="facilityTypeId" class="form-control" id="destinationSelector">
+                        <option *ngFor="let type of facilityTypes" [value]="type.id">{{type.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label >Kategorija:</label>
+                <select [(ngModel)]="categoryId" class="form-control" id="destinationSelector">
+                        <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+                </select>
+              </div> -->
+              <div class="form-group">
+                <label>Dodatne pogodnosti jedinice</label>
+                <select [(ngModel)]="uasId" multiple class="form-control" id="exampleFormControlSelect2">
+                        <option *ngFor="let uas of unitAS" [value]="uas.id">{{uas.name}}</option>
+                </select>
+              </div>
+              <!-- <div class="form-group">
+                <label for="exampleFormControlTextarea1">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div> -->
+            <div class="clearfix"></div>
+            <div class="col-xs-10 col-sm-4 col-md-4 col-lg-4">
+                <button (click)="addUnit()" type="submit" class="btn btn-default">Dodaj</button>
+            </div>
+        <div class="clearfix"></div>
+    
+        <br /><br />
+        </div>
+    </div>

@@ -12,6 +12,7 @@ import rs.ac.uns.ftn.agent.model.UnitAS;
 public interface UnitASRepository extends JpaRepository<UnitAS, Long> {
 	
 	List<UnitAS> findAll();
+	UnitAS findOneById(long id);
 
 	
 	

@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * <p>Java class for Reservation complex type.
@@ -69,7 +71,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class Reservation {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id;
 	
     @XmlElement(required = true)
@@ -92,6 +94,7 @@ public class Reservation {
     @XmlElement(required = true)
     @ManyToOne
 	@JoinColumn(name="accommodationUnit", nullable=false)
+    @JsonIgnore
     protected AccommodationUnit accommodationUnit;
     
     @XmlElement(required = true)

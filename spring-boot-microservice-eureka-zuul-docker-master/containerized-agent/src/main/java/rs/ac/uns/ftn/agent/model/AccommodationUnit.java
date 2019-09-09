@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,7 +74,7 @@ import javax.xml.bind.annotation.XmlType;
 public class AccommodationUnit {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
     protected long id;
 	
 	@Column(nullable=false)
@@ -84,7 +86,7 @@ public class AccommodationUnit {
 	@Column
 	protected int daysBefore;
     
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
  	@JoinTable(
  			name="accUnitAS",
  			joinColumns=@JoinColumn(name="accUnitId"),
@@ -92,7 +94,7 @@ public class AccommodationUnit {
 	protected List<UnitAS> unitAS;
     
 	@XmlElement(required = true)
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
  	@JoinColumn(name="accommodationFacility", nullable=false)
     protected AccommodationFacility accommodationFacility;
     
@@ -100,7 +102,7 @@ public class AccommodationUnit {
     protected String image;
     
 	@XmlElement(required = true)
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
  	@JoinColumn(name="pricePerMonthId", referencedColumnName="id")
 	protected PricePerMonth pricePerMonth;
 	

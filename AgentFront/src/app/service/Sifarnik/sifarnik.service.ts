@@ -11,26 +11,19 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const srcResUrl="http://localhost:8763/srcres/api/"
+const agentUrl="http://localhost:2225/api/agent/res/"
 
 @Injectable({
   providedIn: 'root'
 })
 export class SifarnikService {
 
-  private getAllDestinationsUrl=srcResUrl+"src/getAllDestinations";
-  private getAllCategoriesUrl=srcResUrl+"src/getAllCategories";
-  private getAllFasUrl=srcResUrl+"src/getAllfas";
-  private getAllUasUrl=srcResUrl+"src/getAlluas";
-  private getAllFacilityTypesUrl=srcResUrl+"src/getAllFacilityTypes";
-  private addCategoryUrl=srcResUrl+"src/addCategory";
-  private deleteCategoryUrl=srcResUrl+"src/deleteCategory/";
-  private addFASUrl=srcResUrl+"src/addfas";
-  private deleteFASUrl=srcResUrl+"src/deletefas/";
-  private addUASUrl=srcResUrl+"src/adduas";
-  private deleteUASUrl=srcResUrl+"src/deleteuas/";
-  private addTypeUrl=srcResUrl+"src/addType";
-  private deleteTypeUrl=srcResUrl+"src/deleteType/";
+  private getAllDestinationsUrl=agentUrl+"getAllDestinations";
+  private getAllCategoriesUrl=agentUrl+"getAllCategories";
+  private getAllFasUrl=agentUrl+"getAllfas";
+  private getAllUasUrl=agentUrl+"getAlluas";
+  private getAllFacilityTypesUrl=agentUrl+"getAllFacilityTypes";
+
 
   constructor(private http:HttpClient) { }
 
@@ -42,51 +35,15 @@ export class SifarnikService {
     return this.http.get<FacilityType[]>(this.getAllFacilityTypesUrl,httpOptions);
   }
 
-  addType(type:FacilityType):Observable<FacilityType>{
-    return this.http.post<FacilityType>(this.addTypeUrl,type,httpOptions);
-  }
-
-  deleteType(id:Number):Observable<any>{
-    let url=this.deleteTypeUrl+id;
-    return this.http.delete(url,httpOptions);
-  }
-
   getAllCategories():Observable<Category[]>{
     return this.http.get<Category[]>(this.getAllCategoriesUrl,httpOptions);
-  }
-
-  addCategory(category:Category):Observable<Category>{
-    return this.http.post<Category>(this.addCategoryUrl,category,httpOptions);
-  }
-
-  deleteCategory(id:Number):Observable<any>{
-    let url=this.deleteCategoryUrl+id;
-    return this.http.delete(url,httpOptions);
   }
 
   getAlluas():Observable<UnitAS[]>{
     return this.http.get<UnitAS[]>(this.getAllUasUrl,httpOptions);
   }
 
-  addUas(uas:UnitAS):Observable<UnitAS>{
-    return this.http.post<UnitAS>(this.addUASUrl,uas,httpOptions);
-  }
-
-  deleteUas(id:Number):Observable<any>{
-    let url=this.deleteUASUrl+id;
-    return this.http.delete(url,httpOptions);
-  }
-
   getAllfas():Observable<FacilityAS[]>{
     return this.http.get<FacilityAS[]>(this.getAllFasUrl,httpOptions);
-  }
-
-  addFas(fas:FacilityAS):Observable<FacilityAS>{
-    return this.http.post<FacilityAS>(this.addFASUrl,fas,httpOptions);
-  }
-
-  deleteFas(id:Number):Observable<any>{
-    let url=this.deleteFASUrl+id;
-    return this.http.delete(url,httpOptions);
   }
 }
