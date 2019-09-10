@@ -12,7 +12,6 @@ import { SifarnikService } from '../service/Sifarnik/sifarnik.service';
 import { AccommodationService } from '../service/Accommodation/accommodation.service';
 import { NewFacilityDTO } from '../model/new-facility-dto';
 import { DomSanitizer } from '@angular/platform-browser';
-import { runInThisContext } from 'vm';
 import { UnitAS } from '../model/unit-as';
 import { NewUnitDto } from '../model/new-unit-dto';
 

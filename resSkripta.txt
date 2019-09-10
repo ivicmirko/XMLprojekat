@@ -1,4 +1,4 @@
-$ npx @google-cloud/functions-framework --target=sendComment --port 8140
+npx @google-cloud/functions-framework --target=sendComment --port 8140
 ----categories of facility
 --INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('1', 'nekategorisan');
 --INSERT INTO `megatravel`.`category` (`id`, `name`) VALUES ('2', '1 zvezdica');

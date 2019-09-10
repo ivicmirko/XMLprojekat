@@ -8,7 +8,6 @@ import { SessionStorageService } from '../service/SessionStorage/session-storage
 import { MessageDTO } from '../model/message-dto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from '../service/Message/message.service';
-import { runInThisContext } from 'vm';
 import { RatingService } from '../service/Rating/rating.service';
 import { AddCommentDTO } from '../model/add-comment-dto';
 import { RatingDTO } from '../model/rating-dto';

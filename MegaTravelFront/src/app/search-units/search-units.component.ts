@@ -11,7 +11,6 @@ import { ShareService } from '../service/Share/share.service';
 import { AuthService } from '../service/Auth/auth.service';
 import { SearchReservationService } from '../service/SearchReservation/search-reservation.service';
 import { ReservationDTO } from '../model/reservation-dto';
-import { SessionState } from 'http2';
 import { SessionStorageService } from '../service/SessionStorage/session-storage.service';
 import { Comment } from '../model/comment';
 import { RatingService } from '../service/Rating/rating.service';
