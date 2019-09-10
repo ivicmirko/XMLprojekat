@@ -13,5 +13,6 @@ public interface FacilityRepository extends JpaRepository<AccommodationFacility,
 	List<AccommodationFacility> findAll();
 	List<AccommodationFacility> findByDestinationName(String name);
 	Optional<AccommodationFacility> findByid(Long id);
+	AccommodationFacility findOneById(Long id);
 
 }

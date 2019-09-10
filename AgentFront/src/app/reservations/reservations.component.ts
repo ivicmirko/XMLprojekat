@@ -6,6 +6,7 @@ import { AccommodationUnit } from '../model/accommodation-unit';
 import { SessionStorageService } from '../service/SessionStorage/session-storage.service';
 import { AccommodationUnitDTO } from '../model/accommodation-unit-dto';
 import { NewReservationDTO } from '../model/new-reservation-dto';
+import { SyncService } from '../service/Sync/sync.service';
 
 @Component({
   selector: 'app-reservations',
@@ -24,7 +25,7 @@ export class ReservationsComponent implements OnInit {
   units:AccommodationUnitDTO[];
 
   constructor(private accommodationService:AccommodationService,private formBuilder:FormBuilder,
-    private sessionStorageService:SessionStorageService) { }
+    private sessionStorageService:SessionStorageService,private syncService:SyncService) { }
 
   ngOnInit() {
     this.newResForm=this.formBuilder.group({
@@ -62,9 +63,42 @@ export class ReservationsComponent implements OnInit {
     this.newReservation.checkOutDate=this.newResForm.get('checkOutDate').value;
     this.newReservation.isRealised=this.isRealizedNewReservation;
     this.newReservation.totalPrice=this.newResForm.get('totalPrice').value;
-    this.newReservation.accommodationUnitId=this.unitId;
+    this.newReservation.unitId=this.unitId;
+
+    this.accommodationService.makeReservation(this.newReservation).subscribe(data=>{
+      let username=this.sessionStorageService.getUserName();
+      this.syncService.syncBase(username).subscribe(data=>{
+        console.log('baza uspesno azurirana');
+        window.location.reload();
+        this.addMod=false;
+      },
+      error=>{
+        console.log('buc');
+        
+      })
+    },error=>{
+      console.log('neuspesno make reservation');
+    })
 
     console.log(this.newReservation);
   }
+
+  realizeReservation(id:Number){
+    this.accommodationService.realizeReservation(id).subscribe(data=>{
+      let username=this.sessionStorageService.getUserName();
+      this.syncService.syncBase(username).subscribe(data=>{
+        console.log('baza uspesno azurirana');
+        window.location.reload();
+        this.addMod=false;
+      },
+      error=>{
+        console.log('buc');
+        
+      });
+    },error=>{
+      console.log('neuspesno realizacija rezervacije');
+    });
+  }
+
 
 }

@@ -8,7 +8,7 @@ import rs.ac.uns.ftn.reservation.model.Message;
 
 public interface MessageRepository  extends JpaRepository<Message, Long>{
 
-	List<Message> findByIdSender(Long id);
-	List<Message> findByIdReceiver(Long id);
+	List<Message> findByIdSender(Long idSender);
+	List<Message> findByIdReceiver(Long idReceiver);
 	
 }

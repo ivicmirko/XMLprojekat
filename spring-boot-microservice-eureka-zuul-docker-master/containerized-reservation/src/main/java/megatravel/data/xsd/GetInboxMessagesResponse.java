@@ -73,4 +73,9 @@ public class GetInboxMessagesResponse {
         return this.messages;
     }
 
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
+    
 }

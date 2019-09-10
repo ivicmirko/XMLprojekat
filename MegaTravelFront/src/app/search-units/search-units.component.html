@@ -130,4 +130,15 @@
                    </div>
                 </form>
             </div>
+
+            <div *ngFor="let com of comments" class="col-md-3 my">
+                    <h3 class="sidebar-heading">Komentar datuma:{{com.date | date: 'dd/MM/yyyy'}}</h3>
+                    <form  class="colorlib-form-2">
+                       <div class="form-check">
+                        <label class="form-check-label" for="exampleCheck1">
+                          <h4 class="place">{{com.text}}</h4>
+                        </label>
+                       </div>
+                    </form>
+                </div>
     </div>

@@ -8,12 +8,18 @@
 
 package megatravel.data.xsd;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -55,21 +61,32 @@ public class Comment {
     protected long idUser;
     @XmlElement(required = true)
     protected String text;
+    @JsonProperty("published")
     protected boolean published;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar date;
+    protected Date date;
     protected long accommodationFacilityId;
+    private String datum;
 
     /**
      * Gets the value of the id property.
      * 
      */
+    
     public long getId() {
         return id;
     }
 
-    /**
+    public String getDatum() {
+		return datum;
+	}
+
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+
+	/**
      * Sets the value of the id property.
      * 
      */
@@ -141,8 +158,16 @@ public class Comment {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDate() {
-        return date;
+    public Date getDate() {
+		
+		String dateString=new SimpleDateFormat("yyyy-MM-dd").format(this.date);
+		try {
+			this.date= new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return this.date;
     }
 
     /**
@@ -153,7 +178,14 @@ public class Comment {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDate(XMLGregorianCalendar value) {
+    public void setDate(Date value) {
+    	String dateString=new SimpleDateFormat("yyyy-MM-dd").format(value);
+		try {
+			value= new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         this.date = value;
     }
 

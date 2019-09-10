@@ -25,7 +25,7 @@ export class AccommodationService {
   private uploadImageUrl=agentUrl+"uploadImage/";
   private getAllFacilitiesUrl=agentUrl+"getAllFacilities";
   private addUnitUrl=agentUrl+"addUnit";
-  private addReservationUrl=agentUrl+"newReservation";
+  private addReservationUrl=agentUrl+"makeReservation";
   private realizeReservationUrl=agentUrl+"realizeReservation/"
   private getAllUnitsUrl=agentUrl+"getAllUnits";
   private getAllReservationsUrl=agentUrl+"getAllReservations";
@@ -66,7 +66,7 @@ export class AccommodationService {
 
   realizeReservation(id:Number):Observable<any>{
     let url=this.realizeReservationUrl+id;
-    return this.http.put(url,httpOptions);
+    return this.http.get(url,httpOptions);
   }
 
   

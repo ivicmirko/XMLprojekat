@@ -12,4 +12,5 @@ public interface ReservationService {
 	List<Reservation> findReservationsByGuestUsername(String username);
 	Reservation cancelReservation(Long id);
 //	Reservation realizeReservation(Long id);
+	boolean agentMakeReservation(Reservation reservation);
 }

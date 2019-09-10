@@ -73,4 +73,10 @@ public class GetSentMessagesResponse {
         return this.messages;
     }
 
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+    
+    
+
 }

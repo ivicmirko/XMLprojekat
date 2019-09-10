@@ -19,6 +19,8 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import { AgentAdminComponent } from './agent-admin/agent-admin.component';
 import { SearchUnitsComponent } from './search-units/search-units.component';
 import { UserReservationsComponent } from './user-reservations/user-reservations.component';
+import { MessageComponent } from './message/message.component';
+import { CommentAdminComponent } from './comment-admin/comment-admin.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { UserReservationsComponent } from './user-reservations/user-reservations
     UserAdminComponent,
     AgentAdminComponent,
     SearchUnitsComponent,
-    UserReservationsComponent
+    UserReservationsComponent,
+    MessageComponent,
+    CommentAdminComponent
   ],
   imports: [
     BrowserModule,

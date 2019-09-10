@@ -2,12 +2,14 @@ package rs.ac.uns.ftn.soap;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 import dto.NewFacilityDTO;
+import dto.NewResDTO;
 import dto.NewUnitDTO;
 import megatravel.data.xsd.AccommodationFacility;
 import megatravel.data.xsd.AccommodationUnit;
@@ -17,13 +19,24 @@ import megatravel.data.xsd.FacilityAS;
 import megatravel.data.xsd.FacilityType;
 import megatravel.data.xsd.GetAllReservationsRequest;
 import megatravel.data.xsd.GetAllReservationsResponse;
+import megatravel.data.xsd.GetInboxMessagesRequest;
+import megatravel.data.xsd.GetInboxMessagesResponse;
+import megatravel.data.xsd.GetSentMessagesRequest;
+import megatravel.data.xsd.GetSentMessagesResponse;
 import megatravel.data.xsd.GetSyncBaseRequest;
 import megatravel.data.xsd.GetSyncBaseResponse;
 import megatravel.data.xsd.Location;
+import megatravel.data.xsd.Message;
 import megatravel.data.xsd.PostNewAccommodationFacilityRequest;
 import megatravel.data.xsd.PostNewAccommodationFacilityResponse;
+import megatravel.data.xsd.PostNewMessageRequest;
+import megatravel.data.xsd.PostNewMessageResponse;
+import megatravel.data.xsd.PostNewReservationRequest;
+import megatravel.data.xsd.PostNewReservationResponse;
 import megatravel.data.xsd.PostNewUnitRequest;
 import megatravel.data.xsd.PostNewUnitResponse;
+import megatravel.data.xsd.PostReservationRealizationRequest;
+import megatravel.data.xsd.PostReservationRealizationResponse;
 import megatravel.data.xsd.PricePerMonth;
 import megatravel.data.xsd.Reservation;
 import megatravel.data.xsd.UnitAS;
@@ -74,6 +87,58 @@ public class ReservationClient extends WebServiceGatewaySupport {
 	
 	public GetAllReservationsResponse getAllReservations(GetAllReservationsRequest request) {
 		return (GetAllReservationsResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+	
+	public GetInboxMessagesResponse getInbox(Long id) {
+		GetInboxMessagesRequest request=new GetInboxMessagesRequest();
+		request.setAgentUsername(id);
+		return (GetInboxMessagesResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+	
+	public GetSentMessagesResponse getSent(Long id) {
+		GetSentMessagesRequest request=new GetSentMessagesRequest();
+		request.setAgentId(id);
+		return (GetSentMessagesResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+	
+	public PostNewMessageResponse sendMessage(rs.ac.uns.ftn.agent.model.Message msg) {
+		PostNewMessageRequest request=new PostNewMessageRequest();
+		Message message=new Message();
+		message.setIdReceiver(msg.getIdReceiver());
+		message.setIdSender(msg.getIdSender());
+		message.setText(msg.getText());
+		message.setDate(new Date());
+		request.setMessage(message);
+		return (PostNewMessageResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+	
+	public PostNewReservationResponse makeReservation(NewResDTO nu) {
+		PostNewReservationRequest request=new PostNewReservationRequest();
+		ObjectCaster toModel=new ObjectCaster();
+		ObjectCasterToXML toXml=new ObjectCasterToXML();
+		
+		Reservation reservation=new Reservation();
+		
+		reservation.setCheckInDate(nu.getCheckInDate());
+		reservation.setCheckOutDate(nu.getCheckOutDate());
+		reservation.setTotalPrice(nu.getTotalPrice());
+		reservation.setIsRealised(nu.isRealized());
+		reservation.setGuestUserName("agentReservation");
+		System.out.println("aaala"+nu.getUnitId());
+		rs.ac.uns.ftn.agent.model.AccommodationUnit unitM=this.unitRepository.findOneById(nu.getUnitId());
+		System.out.println("make"+unitM.getNumberOfDays());
+		AccommodationUnit unit=new AccommodationUnit();
+		unit=toXml.castAccommodationUnit(unitM);
+		reservation.setAccommodationUnit(unit);
+		
+		request.setReservation(reservation);
+		PostNewReservationResponse response=(PostNewReservationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	
+		return response;
+	}
+	
+	public PostReservationRealizationResponse realizeReservation(PostReservationRealizationRequest request) {
+		return (PostReservationRealizationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
 	}
 	
 	public PostNewUnitResponse addNewUnit(NewUnitDTO nu) {

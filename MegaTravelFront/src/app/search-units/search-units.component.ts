@@ -13,6 +13,8 @@ import { SearchReservationService } from '../service/SearchReservation/search-re
 import { ReservationDTO } from '../model/reservation-dto';
 import { SessionState } from 'http2';
 import { SessionStorageService } from '../service/SessionStorage/session-storage.service';
+import { Comment } from '../model/comment';
+import { RatingService } from '../service/Rating/rating.service';
 
 @Component({
   selector: 'app-search-units',
@@ -35,12 +37,12 @@ export class SearchUnitsComponent implements OnInit {
   filtratedUnits:AccommodationUnit[]=[];
   showingUnits:AccommodationUnit[]=[];
   profile:ProfileDTO;
-  // reviews:Review[];
+  comments:Comment[]=[];
 
 
   constructor(private formBuilder:FormBuilder,private sifarnikService:SifarnikService,private router:Router,
     private authService: AuthService, private shareService:ShareService,private srcResService:SearchReservationService,
-    private sessionStorageService:SessionStorageService) { }
+    private sessionStorageService:SessionStorageService,private ratingService:RatingService) { }
 
   ngOnInit() {
     this.getLogged();
@@ -65,6 +67,12 @@ export class SearchUnitsComponent implements OnInit {
 
     let tem=localStorage.getItem('idfac');
     this.id=JSON.parse(tem);
+
+    this.ratingService.commentsForFacility(this.id).subscribe(data=>{
+      this.comments=data;
+    },error=>{
+      console.log("neuspesno comentari");
+    })
 
     this.srcResService.getFacility(this.id).subscribe(data=>{
       this.accommodationFacility=data;

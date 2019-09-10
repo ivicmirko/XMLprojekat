@@ -13,5 +13,5 @@ public interface UserRepository extends JpaRepository<SystemUser, Long> {
 	SystemUser findByUsername(String username);
 	SystemUser saveAndFlush(SystemUser systemUser);
 	SystemUser findOneById(Long id);
-
+	SystemUser findOneByUsername(String username);
 }

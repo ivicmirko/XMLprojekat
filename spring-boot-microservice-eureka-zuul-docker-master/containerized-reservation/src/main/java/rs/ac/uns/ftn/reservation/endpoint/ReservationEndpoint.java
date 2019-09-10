@@ -14,11 +14,19 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import megatravel.data.xsd.GetAllReservationsRequest;
 import megatravel.data.xsd.GetAllReservationsResponse;
+import megatravel.data.xsd.GetInboxMessagesRequest;
+import megatravel.data.xsd.GetInboxMessagesResponse;
+import megatravel.data.xsd.GetSentMessagesRequest;
+import megatravel.data.xsd.GetSentMessagesResponse;
 import megatravel.data.xsd.GetSyncBaseRequest;
 import megatravel.data.xsd.GetSyncBaseResponse;
+import megatravel.data.xsd.Message;
 import megatravel.data.xsd.PostNewAccommodationFacilityRequest;
 import megatravel.data.xsd.PostNewAccommodationFacilityResponse;
+import megatravel.data.xsd.PostNewMessageRequest;
+import megatravel.data.xsd.PostNewMessageResponse;
 import megatravel.data.xsd.PostNewReservationRequest;
+import megatravel.data.xsd.PostNewReservationResponse;
 import megatravel.data.xsd.PostNewUnitRequest;
 import megatravel.data.xsd.PostNewUnitResponse;
 import megatravel.data.xsd.PostReservationRealizationRequest;
@@ -39,6 +47,7 @@ import rs.ac.uns.ftn.reservation.repository.FacilityASRepository;
 import rs.ac.uns.ftn.reservation.repository.FacilityRepository;
 import rs.ac.uns.ftn.reservation.repository.FacilityTypeRepository;
 import rs.ac.uns.ftn.reservation.repository.LocationRepository;
+import rs.ac.uns.ftn.reservation.repository.MessageRepository;
 import rs.ac.uns.ftn.reservation.repository.PricePerMonthRepository;
 import rs.ac.uns.ftn.reservation.repository.ReservationRepository;
 import rs.ac.uns.ftn.reservation.repository.UnitASRepository;
@@ -82,6 +91,70 @@ public class ReservationEndpoint {
 	@Autowired
 	ReservationService reservationService;
 	
+	@Autowired
+	MessageRepository messageRepository;
+	
+	
+	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="PostNewMessageRequest")
+	@ResponsePayload
+	@Transactional
+	public PostNewMessageResponse sendMessage(@RequestPayload PostNewMessageRequest request) {
+		PostNewMessageResponse response=new PostNewMessageResponse();
+		rs.ac.uns.ftn.reservation.model.Message message=new rs.ac.uns.ftn.reservation.model.Message();
+		message.setDate(request.getMessage().getDate());
+		message.setIdReceiver(request.getMessage().getIdReceiver());
+		message.setIdSender(request.getMessage().getIdSender());
+		message.setText(request.getMessage().getText());
+		
+		this.messageRepository.save(message);
+		
+		return response;
+	}
+	
+	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="GetInboxMessagesRequest")
+	@ResponsePayload
+	@Transactional
+	public GetInboxMessagesResponse sendMessage(@RequestPayload GetInboxMessagesRequest request) {
+		GetInboxMessagesResponse response=new GetInboxMessagesResponse();
+		List<rs.ac.uns.ftn.reservation.model.Message> msgs=this.messageRepository.findByIdReceiver(request.getAgentUsername());
+		List<Message> messages=new ArrayList<>();
+		for(rs.ac.uns.ftn.reservation.model.Message m:msgs) {
+			Message message=new Message(); 
+			message.setDate(m.getDate());
+			message.setIdReceiver(m.getIdReceiver());
+			message.setIdSender(m.getIdSender());
+			message.setText(m.getText());
+			message.setId(m.getId());
+			messages.add(message);
+		}
+		
+		response.setMessages(messages);
+		
+		return response;
+	}
+	
+	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="GetSentMessagesRequest")
+	@ResponsePayload
+	@Transactional
+	public GetSentMessagesResponse sendMessage(@RequestPayload GetSentMessagesRequest request) {
+		GetSentMessagesResponse response=new GetSentMessagesResponse();
+		List<rs.ac.uns.ftn.reservation.model.Message> msgs=this.messageRepository.findByIdSender(request.getAgentId());
+		List<Message> messages=new ArrayList<>();
+		for(rs.ac.uns.ftn.reservation.model.Message m:msgs) {
+			Message message=new Message(); 
+			message.setDate(m.getDate());
+			message.setIdReceiver(m.getIdReceiver());
+			message.setIdSender(m.getIdSender());
+			message.setText(m.getText());
+			message.setId(m.getId());
+			messages.add(message);
+		}
+		
+		response.setMessages(messages);
+		
+		return response;
+	}
+	
 	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="GetAllReservationsRequest")
 	@ResponsePayload
 	@Transactional
@@ -110,18 +183,27 @@ public class ReservationEndpoint {
 	
 	}
 	
-//	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="PostNewReservationsRequest")
-//	@ResponsePayload
-//	public PostNewReservationResponse makeReservation(@RequestPayload PostNewReservationRequest request) {
-//		ObjectCasterToModel toModel=new ObjectCasterToModel();
-//		ObjectCaster toXml=new ObjectCaster();
-//		
-//		Reservation reservation=new Reservation();
-//		reservation=toModel.castReservation(request.getReservation());
-//		
-//		this.reservationService.
-//		
-//	}
+	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="PostNewReservationRequest")
+	@ResponsePayload
+	@Transactional
+	public PostNewReservationResponse makeReservation(@RequestPayload PostNewReservationRequest request) {
+		PostNewReservationResponse response=new PostNewReservationResponse();
+		ObjectCasterToModel toModel=new ObjectCasterToModel();
+		
+		Reservation reservation=new Reservation();
+		reservation=toModel.castReservation(request.getReservation());
+		boolean res=this.reservationService.agentMakeReservation(reservation);
+		//Reservation res=this.reservationRepository.save(reservation);
+		if(res) {
+			Reservation reser=this.reservationRepository.save(reservation);
+			response.setMessage("ok");
+		}else {
+			response.setMessage("no");
+		}
+		
+		return response;
+		
+	}
 	
 	
 	@PayloadRoot(namespace="http://megatravel/data/xsd", localPart="PostReservationRealizationRequest")

@@ -12,6 +12,8 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import { AgentAdminComponent } from './agent-admin/agent-admin.component';
 import { SearchUnitsComponent } from './search-units/search-units.component';
 import { UserReservationsComponent } from './user-reservations/user-reservations.component';
+import { MessageComponent } from './message/message.component';
+import { CommentAdminComponent } from './comment-admin/comment-admin.component';
 
 
 
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path: 'admin/allusers', component: UserAdminComponent},
   {path: 'admin/allagents', component: AgentAdminComponent},
   {path: 'searchunits', component: SearchUnitsComponent},
-  {path: 'userreservations', component:UserReservationsComponent}
+  {path: 'userreservations', component:UserReservationsComponent},
+  {path: 'messages', component:MessageComponent},
+  {path: 'admin/comments', component:CommentAdminComponent}
 ];
 
 @NgModule({

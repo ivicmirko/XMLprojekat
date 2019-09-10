@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import dto.NewFacilityDTO;
+import dto.NewResDTO;
 import dto.NewUnitDTO;
 import dto.UnitDTO;
 import megatravel.data.xsd.GetAllReservationsRequest;
@@ -27,7 +28,10 @@ import megatravel.data.xsd.GetAllReservationsResponse;
 import megatravel.data.xsd.GetSyncBaseRequest;
 import megatravel.data.xsd.GetSyncBaseResponse;
 import megatravel.data.xsd.PostNewAccommodationFacilityResponse;
+import megatravel.data.xsd.PostNewReservationResponse;
 import megatravel.data.xsd.PostNewUnitResponse;
+import megatravel.data.xsd.PostReservationRealizationRequest;
+import megatravel.data.xsd.PostReservationRealizationResponse;
 import rs.ac.uns.ftn.agent.model.AccommodationFacility;
 import rs.ac.uns.ftn.agent.model.AccommodationUnit;
 import rs.ac.uns.ftn.agent.model.Category;
@@ -196,5 +200,26 @@ public class ReservationController {
 		PostNewUnitResponse response=reservationClient.addNewUnit(nu);
 		System.out.println("usao c2");
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@PostMapping(value="makeReservation")
+	public ResponseEntity<?> makeReservation(@RequestBody NewResDTO nr){
+		
+		PostNewReservationResponse response=reservationClient.makeReservation(nr);
+		if(response.getMessage().equals("ok")) {
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		}else {
+			System.out.println("ne meze");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+	
+	@GetMapping(value="realizeReservation/{id}")
+	public ResponseEntity<?> realizeReservation(@PathVariable("id") Long id){
+		PostReservationRealizationRequest request=new PostReservationRealizationRequest();
+		request.setReservationId(id);
+		PostReservationRealizationResponse response=(PostReservationRealizationResponse) reservationClient.realizeReservation(request);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -99,6 +99,9 @@ public class LoginController {
     				.map(GrantedAuthority::getAuthority)
     				.collect(Collectors.toList());
 			ProfileDTO profileDTO=new ProfileDTO(authentication.getName(), jwt, authorities);
+			SystemUser sysUser=new SystemUser();
+			sysUser=this.userRepository.findOneByUsername(profileDTO.getUsername());
+			profileDTO.setId(sysUser.getId());
 	        return ResponseEntity.ok(profileDTO);
 
 		

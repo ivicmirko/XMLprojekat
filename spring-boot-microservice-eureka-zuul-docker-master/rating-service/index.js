@@ -1,47 +1,46 @@
 const connection=require("./database")
 
-exports.ratingService = (req, res) => {
-	var id=req.param('id');
-	var fac=req.param('fac');
-	//console.log(fac);
-	
-	if(id==0){
-		connection.query("select * from testTable",(error,result)=>
-		{
-		  if (error){
-			  res.status(400).send(error);
-		  }else{
-			params=req.params;
-			res.status(200).send(result);
-		  }
-		});
-	}else if(id==1){
-		connection.query("select testTable.name from testTable",(error,result)=>
-		{
-		  if (error){
-			  res.status(400).send(error);
-		  }else{
-			params=req.params;
-			res.status(200).send(result);
-		  }
-		});
-	}else if(id ==2){
-		console.log(fac);
-		connection.query("select * from ratingBase.reviews where facilityId=3",(error,result)=>
-		{
-		  if (error){
-			  res.status(400).send(error);
-		  }else{
-			res.status(200).send(result);
-		  }
-		});
-	}else if(id===3){
+exports.sendComment = function sendComment(req, res) {
+    let idUser = req.body.idUser;
+    let text = req.body.text;
+    let published = req.body.published;
+    let datum = req.body.datum;
+	let accommodationFacilityId = req.body.accommodationFacilityId;
+    connection.query("insert into ratingBase.reviews (idUser, accommodationFacilityId, published, date, text) values (?, ?, ?, ?, ?)", [idUser, accommodationFacilityId, published, datum, text], (err, result) => {
+	if (err) res.status(400).send(err);
+	else {
 		
-	}else if(id===4){
-		
-	}else if(id===5){
-		
-	}else{
-		res.status(400).send("Bad request");
+		res.status(200).send('dodat komentar');
+
 	}
+	
+    });
 };
+
+exports.getAllComments = function getAllComments(req, res) {
+
+    connection.query("select * from ratingBase.reviews", (err, result) => {
+	if (err) res.status(400).send(err);
+	else {
+		
+		res.status(200).send(result);
+
+	}
+	
+    });
+};
+
+exports.publishComment = function publishComment(req, res) {
+	let flag = req.body.flag;
+    let id = req.body.id;
+    connection.query("UPDATE `reviews` SET `published` = "+flag+" where id = "+id, (err, result) => {
+	if (err) res.status(400).send(err);
+	else {
+		
+		res.status(200).send(result);
+
+	}
+	
+    });
+};
+

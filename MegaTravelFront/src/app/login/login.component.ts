@@ -57,6 +57,8 @@ export class LoginComponent implements OnInit {
       data=>
       {
         this.profile=data;
+        console.log('huraa');
+        console.log(data);
         this.sessionStorageService.saveToken(data.token);
         this.sessionStorageService.saveUsername(data.username);
         this.sessionStorageService.saveUserData(this.profile);

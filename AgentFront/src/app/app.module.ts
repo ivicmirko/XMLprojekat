@@ -14,6 +14,7 @@ import { FacilitiesComponent } from './facilities/facilities.component';
 import { TokenInterceptorServiceService } from './service/TokenInterceptorService/token-interceptor-service.service';
 import { AgentReservationComponent } from './agent-reservation/agent-reservation.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReservationsComponent } from './reservations/reservations.component';
     LoginComponent,
     FacilitiesComponent,
     AgentReservationComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

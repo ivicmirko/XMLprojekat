@@ -7,7 +7,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!--Table-->
-<div class="pozadina" *ngIf="!addMod">
+<div class="pozadina" *ngIf="!addMod && !comment && !rating">
 <table class="table table-hover table-dark">
         <thead>
           <tr style="background-color: darkgrey">
@@ -19,8 +19,10 @@
             <th scope="col">Kapacitet jedinice</th>
             <th scope="col">Otkazivanje</th>
             <th scope="col">Poruka</th>
-            <!-- <th scope="col"><button (click)="addFASClick()" type="button" class="btn btn-primary">Dodaj</button></th> -->
-            <!-- <th scope="col"></th> -->
+            <th scope="col">Ocena</th>
+            <th scope="col">Komentar</th>
+
+            
           </tr>
         </thead>
         <tbody>
@@ -32,40 +34,43 @@
             <td>{{res.totalPrice}}</td>
             <td>{{res.accommodationUnit.capacity}}</td>
             <td><button *ngIf="res.accommodationUnit.canBeCancelled" type="button" (click)="cancelReservation(res.id)" class="btn btn-danger">Otkazi</button></td>
-            <td><button  type="button" (click)="sendMessage(res.id)" class="btn btn-primary">Posalji poruku</button></td>
+            <td><button  type="button" (click)="sendMessageClick(res.id)" class="btn btn-primary">Posalji poruku</button></td>
+            <td><button  *ngIf="res.isRealised" type="button" (click)="sendRatingClick(res.id)" class="btn btn-primary">Oceni</button></td>
+            <td><button *ngIf="res.isRealised" type="button" (click)="sendCommentClick(res.id)" class="btn btn-primary">Komentar</button></td>
+
         </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="card mx-xl-5 forma" *ngIf="addMod">
+    <div *ngIf="addMod && !comment && !rating" class="card mx-xl-5 forma" >
 
-            <!-- Card body -->
-            <div class="card-body">
-          
-              <!-- Default form subscription -->
-              <form [formGroup]="fasForm" (ngSubmit)="addFAS()">
-                <p class="h4 text-center py-4">Dodavanje nove pogodnosti objekta</p>
-          
-                <!-- Default input name -->
-                <label for="defaultFormCardNameEx" class="grey-text font-weight-light">Naziv usluge</label>
-                <div class="form-group">
-                        <input formControlName="name" type="text" class="form-control" placeholder="Naziv usluge *" value="" />
+            <form [formGroup]="messageForm">
+                    <div class="form-group pozicija">
+                            <label for="exampleFormControlTextarea1">Vasa poruka</label>
+                            <textarea formControlName="text" class="form-control" rows="5"></textarea>
+                            <button type="button" (click)="sendMessage()" class="btn btn-light dugme">Posalji</button>
                     </div>
-                    <div *ngIf="submitted && fasForm.controls.name.errors" class="error">
-                            <div *ngIf="fasForm.controls.name.errors.required">Unesite naziv usluge</div>
-                    </div>
-                <br>
-          
-          
-                <div class="text-center py-4 mt-3">
-                        <button type="submit" class="btn btn-primary">Dodaj</button>
-                </div>
-              </form>
-              <!-- Default form subscription -->
-          
-            </div>
-            <!-- Card body -->
-          
+                </form>
           </div>
+
+      <div *ngIf="!addMod && comment && !rating" class="card mx-xl-5 forma" >
+        <form [formGroup]="commentForm">
+        <div class="form-group pozicija">
+            <label for="exampleFormControlTextarea1">Vas komentar</label>
+            <textarea formControlName="text" class="form-control" rows="5"></textarea>
+            <button type="button" (click)="sendComment()" class="btn btn-light dugme">Posalji</button>
+        </div>
+        </form>
+      </div>
+
+      <div *ngIf="!addMod && !comment && rating" class="card mx-xl-5 forma" >
+          <form [formGroup]="rateForm">
+          <div class="form-group pozicija">
+              <label for="exampleFormControlTextarea21">Vasa ocena od(1-5)</label>
+              <input formControlName="rate" class="form-control" type="number"/>
+              <button type="button" (click)="sendRating()" class="btn btn-light dugme">Posalji</button>
+          </div>
+          </form>
+        </div>
           <!-- Card -->

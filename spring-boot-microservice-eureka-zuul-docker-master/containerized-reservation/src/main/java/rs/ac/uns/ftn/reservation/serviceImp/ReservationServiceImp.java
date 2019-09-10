@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.reservation.serviceImp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -95,6 +96,27 @@ public class ReservationServiceImp implements ReservationService {
 		this.reservationRepository.delete(reservation);
 		return reservation;
 	}
+
+
+	@Override
+	@Transactional
+	public boolean agentMakeReservation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		List<Reservation> reservations=new ArrayList<>();
+		reservations=this.reservationRepository.findAll();
+		for(Reservation r:reservations) {
+			if(r.getAccommodationUnit().getId()==reservation.getAccommodationUnit().getId()) {
+				if((r.getCheckInDate().compareTo(reservation.getCheckInDate())>0 && r.getCheckInDate().compareTo(reservation.getCheckOutDate())<0)||
+						(r.getCheckOutDate().compareTo(reservation.getCheckInDate())>0 && r.getCheckOutDate().compareTo(reservation.getCheckOutDate())<0)){
+					System.out.println("3korak");
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	
 
 
 //	@Override
